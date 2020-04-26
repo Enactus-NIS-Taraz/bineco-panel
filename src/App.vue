@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import config from "@/config/config";
+
 export default {
   computed: {
     isLoggedIn: function() {
@@ -28,6 +30,9 @@ export default {
         throw err;
       });
     });
+  },
+  mounted() {
+    console.log(config.apiBaseUrl);
   }
 };
 </script>
