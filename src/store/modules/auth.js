@@ -12,7 +12,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: config.apiBaseUrl,
+          url: config.apiBaseUrl + "login",
           data: {
             email,
             password
@@ -44,7 +44,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authRequest");
         axios({
-          url: config.apiBaseUrl,
+          url: config.apiBaseUrl + "register",
           data: user,
           method: "POST"
         })

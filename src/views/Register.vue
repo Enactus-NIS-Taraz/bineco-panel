@@ -2,9 +2,26 @@
   <div>
     <h4>Register</h4>
     <form @submit.prevent="register">
-      <label for="name">Name</label>
+      <label for="firstName">Name</label>
       <div>
-        <input id="name" type="text" v-model="name" required autofocus />
+        <input
+          id="firstName"
+          type="text"
+          v-model="firstName"
+          required
+          autofocus
+        />
+      </div>
+
+      <label for="lastName">lastName</label>
+      <div>
+        <input
+          id="lastName"
+          type="text"
+          v-model="lastName"
+          required
+          autofocus
+        />
       </div>
 
       <label for="email">E-Mail Address</label>
@@ -17,7 +34,7 @@
         <input id="password" type="password" v-model="password" required />
       </div>
 
-      <label for="password-confirm">Confirm Password</label>
+      <!-- <label for="password-confirm">Confirm Password</label>
       <div>
         <input
           id="password-confirm"
@@ -25,7 +42,7 @@
           v-model="password_confirmation"
           required
         />
-      </div>
+      </div> -->
 
       <div>
         <button type="submit">Register</button>
@@ -38,20 +55,20 @@
 export default {
   data() {
     return {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
-      password: "",
-      password_confirmation: "",
-      is_admin: null
+      password: ""
+      // password_confirmation: ""
     };
   },
   methods: {
     register: function() {
       let data = {
-        name: this.name,
+        firstName: this.firstName,
+        lastName: this.lastName,
         email: this.email,
-        password: this.password,
-        is_admin: this.is_admin
+        password: this.password
       };
       this.$store
         .dispatch("register", data)
