@@ -75,7 +75,8 @@ export default new Vuex.Store({
       });
     },
     logout({ commit }) {
-      return new Promise(resolve => {
+      // eslint-disable-next-line no-unused-vars
+      return new Promise((resolve, _reject) => {
         commit("logout");
         localStorage.removeItem("token");
         delete axios.defaults.headers.common["Authorization"];
