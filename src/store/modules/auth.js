@@ -1,4 +1,5 @@
 import axios from "axios";
+import config from "@/config/config";
 
 export default {
   state: {
@@ -11,7 +12,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: "https://bineco-api.herokuapp.com/",
+          url: config.apiUrl,
           data: user,
           method: "POST"
         })
@@ -34,7 +35,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authRequest");
         axios({
-          url: "http://localhost:3000/register",
+          url: config.apiUrl,
           data: user,
           method: "POST"
         })
