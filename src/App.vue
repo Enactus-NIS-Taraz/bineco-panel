@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import config from "@/config/config";
+import { mapActions } from "vuex";
 
 export default {
   computed: {
@@ -18,7 +18,8 @@ export default {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/login");
       });
-    }
+    },
+    ...mapActions(["login"])
   },
   created: function() {
     this.$http.interceptors.response.use(undefined, function(err) {
@@ -32,7 +33,7 @@ export default {
     });
   },
   mounted() {
-    console.log(config.apiBaseUrl);
+    this.login({ email: "sayazhan.onlassyn@mail.ru", password: "Taraz2019!" });
   }
 };
 </script>

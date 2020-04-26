@@ -8,21 +8,30 @@ export default {
     user: {}
   },
   actions: {
-    login({ commit }, user) {
+    login({ commit }, { email, password }) {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: config.apiUrl,
-          data: user,
+          url: config.apiBaseUrl,
+          data: {
+            email,
+            password
+          },
           method: "POST"
         })
-          .then(resp => {
-            const token = resp.data.token;
-            const user = resp.data.user;
+          .then(res => {
+            console.log(res);
+            const token = res.data.accessToken;
+            const expiredAt = res.data.accessTokenExpiredAt;
             localStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = token;
-            commit("authSuccess", token, user);
-            resolve(resp);
+            const { email, firstName, lastName } = res.data;
+            commit(
+              "authSuccess",
+              { token, expiredAt },
+              { email, firstName, lastName }
+            );
+            resolve(res);
           })
           .catch(err => {
             commit("authError");
@@ -35,7 +44,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authRequest");
         axios({
-          url: config.apiUrl,
+          url: config.apiBaseUrl,
           data: user,
           method: "POST"
         })
