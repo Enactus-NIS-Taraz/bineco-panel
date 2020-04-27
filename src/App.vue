@@ -31,9 +31,6 @@ export default {
         throw err;
       });
     });
-  },
-  mounted() {
-    this.login({ email: "sayazhan.onlassyn@mail.ru", password: "Taraz2019!" });
   }
 };
 </script>
