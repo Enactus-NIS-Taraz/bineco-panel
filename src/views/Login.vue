@@ -1,32 +1,79 @@
 <template>
-  <div>
-    <form class="login" @submit.prevent="login">
-      <h1>Sign in</h1>
-      <label>Email</label>
-      <input required v-model="email" type="email" placeholder="Name" />
-      <label>Password</label>
-      <input
-        required
-        v-model="password"
-        type="password"
-        placeholder="Password"
-      />
-      <hr />
-      <button type="submit">Login</button>
-    </form>
+  <div class="form">
+    <div class="form__container">
+      <bForm @submit="handleSubmit" :form="form">
+        <h3 class="form__heading">Вход в личный кабинет</h3>
+        <FormItem label="email">
+          <bInput
+            required
+            v-model="email"
+            type="email"
+            placeholder="Email"
+            v-decorator="[
+              'email',
+              {
+                rules: [{ required: true, message: 'Please input your note!' }]
+              }
+            ]"
+          ></bInput>
+        </FormItem>
+        <FormItem label="password">
+          <bInput
+            required
+            v-model="password"
+            type="password"
+            placeholder="Password"
+            v-decorator="[
+              'password',
+              {
+                rules: [{ required: true, message: 'Please input your note!' }]
+              }
+            ]"
+          ></bInput>
+        </FormItem>
+        <bButton
+          type="primary"
+          html-type="submit"
+          class="form-button"
+          @click="handleSubmit"
+          >Login</bButton
+        >
+      </bForm>
+    </div>
   </div>
 </template>
 
 <script>
+import { Form, Input, Button } from "ant-design-vue";
+import FormItem from "ant-design-vue/lib/form/FormItem";
+
 export default {
+  components: {
+    bForm: Form,
+    bInput: Input,
+    bButton: Button,
+    FormItem: FormItem
+  },
+
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      formLayout: "horizontal",
+      form: this.$form.createForm(this, { name: "coordinated" })
     };
   },
   methods: {
-    login: function() {
+    // login: function() {
+
+    // },
+    handleSubmit: function(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log("Received values of form: ", values);
+        }
+      });
       let email = this.email;
       let password = this.password;
       this.$store
@@ -37,3 +84,30 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.form {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/email-pattern.png");
+  background-repeat: repeat;
+}
+
+.form__heading {
+  font-size: 35px;
+}
+
+.form__container {
+  /* width: 40vw; */
+  /* height: 30vw; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border-radius: 5%;
+  background-color: #B5EFDF; */
+  /* border: 1px solid red; */
+}
+</style>
