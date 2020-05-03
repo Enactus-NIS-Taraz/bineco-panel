@@ -1,86 +1,92 @@
 <template>
   <div class="form">
     <div class="form__container">
-      <a-form @submit="handleSubmit" :form="form">
+      <a-form-model
+        :rules="rules"
+        :model="form"
+        @submit="handleSubmit"
+        ref="ruleForm"
+      >
         <h3 class="form__heading">Вход в личный кабинет</h3>
-        <a-form-item label="email">
+        <a-form-model-item label="email" ref="email" prop="email">
           <a-input
             required
-            v-model="email"
+            v-model="form.email"
             type="email"
             placeholder="Email"
-            v-decorator="[
-              'email',
-              {
-                rules: [{ required: true, message: 'Please input your note!' }]
-              }
-            ]"
           ></a-input>
-        </a-form-item>
-        <a-form-item label="password">
+        </a-form-model-item>
+        <a-form-model-item label="password" ref="password" prop="password">
           <a-input
             required
-            v-model="password"
+            v-model="form.password"
             type="password"
             placeholder="Password"
-            v-decorator="[
-              'password',
-              {
-                rules: [{ required: true, message: 'Please input your note!' }]
-              }
-            ]"
           ></a-input>
-        </a-form-item>
+        </a-form-model-item>
         <a-button
           type="primary"
           html-type="submit"
           class="form-button"
           @click="handleSubmit"
+          >Login</a-button
         >
-          Login</a-button
-        >
-      </a-form>
+      </a-form-model>
     </div>
   </div>
 </template>
 
 <script>
-import { Form, Input, Button } from "ant-design-vue";
-import FormItem from "ant-design-vue/lib/form/FormItem";
+import { Input, Button } from "ant-design-vue";
+import { FormModel } from "ant-design-vue";
+import FormItem from "ant-design-vue/lib/form-model/FormItem";
 
 export default {
   components: {
-    "a-form": Form,
+    "a-form-model": FormModel,
     "a-input": Input,
     "a-button": Button,
-    "a-form-item": FormItem
+    "a-form-model-item": FormItem
   },
 
   data() {
     return {
-      email: "",
-      password: "",
-      formLayout: "horizontal",
-      form: this.$form.createForm(this, { name: "coordinated" })
+      form: {
+        email: "",
+        password: ""
+      },
+      rules: {
+        email: [
+          { required: true, message: "Please input email", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "Please input password", trigger: "blur" }
+        ]
+      }
     };
   },
-  methods: {
-    // login: function() {
 
-    // },
+  methods: {
     handleSubmit: function(e) {
       e.preventDefault();
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log("Received values of form: ", values);
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          let email = this.form.email;
+          let password = this.form.password;
+          this.$store
+            .dispatch("login", { email, password })
+            .then(() => this.$router.push("/profile"))
+            .catch(err => console.log(err));
+        } else {
+          console.log("error submit!!");
+          return false;
         }
       });
-      let email = this.email;
-      let password = this.password;
-      this.$store
-        .dispatch("login", { email, password })
-        .then(() => this.$router.push("/"))
-        .catch(err => console.log(err));
+    }
+  },
+  created() {
+    if (this.$store.getters.isLoggedIn) {
+      this.$router.push("/profile");
     }
   }
 };

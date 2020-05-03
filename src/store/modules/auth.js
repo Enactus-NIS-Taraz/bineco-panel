@@ -4,7 +4,9 @@ import config from "@/config/config";
 export default {
   state: {
     status: "",
-    token: localStorage.getItem("token") || "",
+    token: {
+      accessToken: localStorage.getItem("token") || ""
+    },
     user: {}
   },
   actions: {
@@ -36,7 +38,7 @@ export default {
     },
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
-        commit("authRequest");
+        commit("authLoading");
         axios({
           url: config.apiBaseUrl + "register",
           data: user,
@@ -59,9 +61,10 @@ export default {
     },
     logout({ commit }) {
       return new Promise(resolve => {
-        commit("logout");
         localStorage.removeItem("token");
+        commit("logout");
         delete axios.defaults.headers.common["Authorization"];
+        window.location.reload();
         resolve();
       });
     }
@@ -96,7 +99,7 @@ export default {
     }
   },
   getters: {
-    isLoggedIn: state => Boolean(state.token),
+    isLoggedIn: state => Boolean(state.token.accessToken),
     authStatus: state => state.status
   }
 };

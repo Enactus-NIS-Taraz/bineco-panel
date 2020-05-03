@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-//import store from "@/store/index.js";
+import store from "@/store/index.js";
 
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
@@ -31,48 +31,62 @@ Vue.use(VueRouter);
 //   }
 // ];
 
-export default new VueRouter({
+const routes = [
+  {
+    path: "/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/map",
+    name: "map",
+    component: Map,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/catalog",
+    name: "catalog",
+    component: Catalog,
+    meta: {
+      requiresAuth: true
+    }
+  }
+];
+
+const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: "/login",
-      name: "login",
-      component: Login
-    },
-    {
-      path: "/register",
-      name: "register",
-      component: Register
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: Profile
-    },
-    {
-      path: "/map",
-      name: "map",
-      component: Map
-    },
-    {
-      path: "/catalog",
-      name: "catalog",
-      component: Catalog
-    }
-  ]
+  routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (store.getters.isLoggedIn) {
-//       next();
-//       return;
-//     }
-//     next("/login");
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(store);
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      console.log("Logged in");
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
+});
 
-// export default router;
+export default router;

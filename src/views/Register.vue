@@ -42,7 +42,7 @@
           v-model="password_confirmation"
           required
         />
-      </div> -->
+      </div>-->
 
       <div>
         <button type="submit">Register</button>
@@ -74,6 +74,11 @@ export default {
         .dispatch("register", data)
         .then(() => this.$router.push("/"))
         .catch(err => console.log(err));
+    }
+  },
+  created: function() {
+    if (this.$store.getters.isLoggedIn) {
+      this.$router.push("/profile");
     }
   }
 };
