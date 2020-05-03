@@ -1,10 +1,10 @@
 <template>
   <div class="form">
     <div class="form__container">
-      <bForm @submit="handleSubmit" :form="form">
+      <a-form @submit="handleSubmit" :form="form">
         <h3 class="form__heading">Вход в личный кабинет</h3>
-        <FormItem label="email">
-          <bInput
+        <a-form-item label="email">
+          <a-input
             required
             v-model="email"
             type="email"
@@ -15,10 +15,10 @@
                 rules: [{ required: true, message: 'Please input your note!' }]
               }
             ]"
-          ></bInput>
-        </FormItem>
-        <FormItem label="password">
-          <bInput
+          ></a-input>
+        </a-form-item>
+        <a-form-item label="password">
+          <a-input
             required
             v-model="password"
             type="password"
@@ -29,16 +29,17 @@
                 rules: [{ required: true, message: 'Please input your note!' }]
               }
             ]"
-          ></bInput>
-        </FormItem>
-        <bButton
+          ></a-input>
+        </a-form-item>
+        <a-button
           type="primary"
           html-type="submit"
           class="form-button"
           @click="handleSubmit"
-          >Login</bButton
         >
-      </bForm>
+          Login</a-button
+        >
+      </a-form>
     </div>
   </div>
 </template>
@@ -49,10 +50,10 @@ import FormItem from "ant-design-vue/lib/form/FormItem";
 
 export default {
   components: {
-    bForm: Form,
-    bInput: Input,
-    bButton: Button,
-    FormItem: FormItem
+    "a-form": Form,
+    "a-input": Input,
+    "a-button": Button,
+    "a-form-item": FormItem
   },
 
   data() {

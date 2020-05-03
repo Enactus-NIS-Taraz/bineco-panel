@@ -22,18 +22,9 @@ export default {
           .then(res => {
             console.log(res);
             const token = res.data.accessToken;
-            const expiredAt = res.data.accessTokenExpiredAt;
             localStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = token;
-            const { email, firstName, lastName, id } = res.data;
-            commit("authSuccess", {
-              token,
-              expiredAt,
-              email,
-              firstName,
-              lastName,
-              id
-            });
+            commit("authSuccess", res.data);
             resolve(res);
           })
           .catch(err => {
@@ -83,7 +74,7 @@ export default {
       state.status = "success";
       state.token = {
         accessToken: data.accessToken,
-        accessTokenExpiredAt: data.expiredAt
+        accessTokenExpiredAt: data.accessTokenExpiredAt
       };
       state.user = {
         id: data.id,
@@ -99,6 +90,9 @@ export default {
       state.status = "";
       state.token = "";
       state.user = {};
+    },
+    devicesLoading(state) {
+      state.status = "loading";
     }
   },
   getters: {

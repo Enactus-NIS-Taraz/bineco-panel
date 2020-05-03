@@ -4,6 +4,9 @@ import VueRouter from "vue-router";
 
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
+import Profile from "@/views/Profile";
+import Map from "@/views/Map";
+import Catalog from "@/views/Catalog";
 
 Vue.use(VueRouter);
 
@@ -41,6 +44,21 @@ export default new VueRouter({
       path: "/register",
       name: "register",
       component: Register
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: Map
+    },
+    {
+      path: "/catalog",
+      name: "catalog",
+      component: Catalog
     }
   ]
 });
