@@ -3,7 +3,7 @@ import config from "@/config/config";
 
 export default {
   state: {
-    devices_status: "",
+    devicesStatus: "",
     devices: []
   },
   actions: {
@@ -15,13 +15,12 @@ export default {
           method: "GET"
         })
           .then(res => {
-            console.log(res);
             const devices = res.data;
             commit("devicesSuccess", devices);
             resolve(res);
           })
           .catch(err => {
-            commit("devicesError", err);
+            commit("devicesError");
             reject(err);
           });
       });
@@ -29,14 +28,14 @@ export default {
   },
   mutations: {
     devicesLoading(state) {
-      state.devices_status = "loading";
+      state.devicesStatus = "loading";
     },
     devicesSuccess(state, data) {
-      state.devices_status = "success";
+      state.devicesStatus = "success";
       state.devices = data;
     },
     devicesEror(state) {
-      state.devices_status = "error";
+      state.devicesStatus = "error";
     }
   },
   getters: {

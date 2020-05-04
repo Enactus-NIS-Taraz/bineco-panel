@@ -1,35 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "@/store/index.js";
+import store from "@/store/index";
 
-import Login from "@/views/Login.vue";
-import Register from "@/views/Register.vue";
+import Login from "@/views/Login";
+import Register from "@/views/Register";
 import Profile from "@/views/Profile";
-import Map from "@/views/Map";
+import MapPage from "@/views/Map";
 import Catalog from "@/views/Catalog";
 
 Vue.use(VueRouter);
-
-// const routes = [
-//   {
-//     path: "/login",
-//     name: "login",
-//     component: Login
-//   },
-//   {
-//     path: "/register",
-//     name: "register",
-//     component: Register
-//   },
-//   {
-//     path: "/secure",
-//     name: "secure",
-//     component: Secure,
-//     meta: {
-//       requiresAuth: true
-//     }
-//   }
-// ];
 
 const routes = [
   {
@@ -53,7 +32,7 @@ const routes = [
   {
     path: "/map",
     name: "map",
-    component: Map,
+    component: MapPage,
     meta: {
       requiresAuth: true
     }
@@ -75,11 +54,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  console.log(store);
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
-      console.log("Logged in");
       next();
       return;
     }
