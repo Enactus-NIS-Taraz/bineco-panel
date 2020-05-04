@@ -99,6 +99,7 @@ export default {
   },
   getters: {
     isLoggedIn: state => Boolean(state.token.accessToken),
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    accessToken: state => state.token.accessToken
   }
 };

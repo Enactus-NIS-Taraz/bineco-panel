@@ -1,6 +1,8 @@
 import axios from "axios";
 import { message } from "ant-design-vue";
 
+axios.defaults.headers.common["Content-Type"] = "application/json";
+
 const key = "request";
 axios.interceptors.request.use(
   config => {
