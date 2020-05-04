@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/request/request";
 import config from "@/config/config";
 
 export default {
