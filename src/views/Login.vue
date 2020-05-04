@@ -1,22 +1,17 @@
 <template>
-  <div class="form">
-    <div class="form__container">
+  <section class="login">
+    <a-form-model class="login__form">
       <a-form-model
         :rules="rules"
         :model="form"
         @submit="handleSubmit"
-        ref="ruleForm"
+        ref="form"
       >
-        <h3 class="form__heading">Вход в личный кабинет</h3>
-        <a-form-model-item label="email" ref="email" prop="email">
-          <a-input
-            required
-            v-model="form.email"
-            type="email"
-            placeholder="Email"
-          ></a-input>
+        <h3 class="login__heading">Вход в личный кабинет</h3>
+        <a-form-model-item label="Email" ref="email" prop="email">
+          <a-input required v-model="form.email" placeholder="Email"></a-input>
         </a-form-model-item>
-        <a-form-model-item label="password" ref="password" prop="password">
+        <a-form-model-item label="Password" ref="password" prop="password">
           <a-input
             required
             v-model="form.password"
@@ -24,31 +19,16 @@
             placeholder="Password"
           ></a-input>
         </a-form-model-item>
-        <a-button
-          type="primary"
-          html-type="submit"
-          class="form-button"
-          @click="handleSubmit"
+        <a-button type="primary" html-type="submit" class="form-button"
           >Login</a-button
         >
       </a-form-model>
-    </div>
-  </div>
+    </a-form-model>
+  </section>
 </template>
 
 <script>
-import { Input, Button } from "ant-design-vue";
-import { FormModel } from "ant-design-vue";
-import FormItem from "ant-design-vue/lib/form-model/FormItem";
-
 export default {
-  components: {
-    "a-form-model": FormModel,
-    "a-input": Input,
-    "a-button": Button,
-    "a-form-model-item": FormItem
-  },
-
   data() {
     return {
       form: {
@@ -69,19 +49,17 @@ export default {
   methods: {
     handleSubmit: function(e) {
       e.preventDefault();
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          let email = this.form.email;
-          let password = this.form.password;
-          this.$store
-            .dispatch("login", { email, password })
-            .then(() => this.$router.push("/profile"))
-            .catch(err => console.log(err));
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      if (this.isFormValid()) {
+        const { email, password } = this.form;
+        this.$store
+          .dispatch("login", { email, password })
+          .then(() => this.$router.push("/"));
+      }
+    },
+    isFormValid() {
+      let isValid = false;
+      this.$refs.form.validate(valid => (isValid = valid));
+      return isValid;
     }
   },
   created() {
@@ -93,28 +71,22 @@ export default {
 </script>
 
 <style scoped>
-.form {
-  width: 100%;
+.login {
   height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../assets/email-pattern.png");
-  background-repeat: repeat;
 }
 
-.form__heading {
-  font-size: 35px;
+.login__form {
+  width: 40%;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.form__container {
-  /* width: 40vw; */
-  /* height: 30vw; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* border-radius: 5%;
-  background-color: #B5EFDF; */
-  /* border: 1px solid red; */
+.login__heading {
+  font-size: 25px;
 }
 </style>
