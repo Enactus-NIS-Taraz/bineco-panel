@@ -1,10 +1,14 @@
 import axios from "axios";
+import config from "@/config/config";
 import { message } from "ant-design-vue";
 
-axios.defaults.headers.common["Content-Type"] = "application/json";
+const instance = axios.create({
+  baseURL: config.apiBaseUrl,
+  headers: { "Content-Type": "application/json" }
+});
 
 const key = "request";
-axios.interceptors.request.use(
+instance.interceptors.request.use(
   config => {
     message.loading({ content: "Please wait", key });
     return config;
@@ -15,7 +19,7 @@ axios.interceptors.request.use(
   }
 );
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
   res => {
     message.success({ content: "Success", key });
     return res;
@@ -26,4 +30,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export default instance;

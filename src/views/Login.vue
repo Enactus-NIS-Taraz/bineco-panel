@@ -64,7 +64,7 @@ export default {
   },
   created() {
     if (this.$store.getters.isLoggedIn) {
-      this.$router.push("/profile");
+      this.$router.push("/");
     }
   }
 };

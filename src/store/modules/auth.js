@@ -1,5 +1,4 @@
 import axios from "@/request/request";
-import config from "@/config/config";
 
 export default {
   state: {
@@ -14,7 +13,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: config.apiBaseUrl + "login",
+          url: "login",
           data: {
             email,
             password
@@ -39,7 +38,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: config.apiBaseUrl + "register",
+          url: "register",
           data: user,
           method: "POST"
         })
