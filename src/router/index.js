@@ -2,48 +2,78 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store/index";
 
-import Login from "@/views/Login";
-import Register from "@/views/Register";
-import Profile from "@/views/Profile";
-import MapPage from "@/views/Map";
-import Catalog from "@/views/Catalog";
+import Home from "@/views/Home";
+
+import AuthLayout from "@/views/auth/Layout";
+import Login from "@/views/auth/Login";
+import Register from "@/views/auth/Register";
+
+import DevicesLayout from "@/views/devices/Layout";
+import DevicesMap from "@/views/devices/Map";
+import DevicesTable from "@/views/devices/Table";
+
+import UserLayout from "@/views/user/Layout";
+import Profile from "@/views/user/Profile";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "profile",
-    component: Profile,
+    name: "home",
+    component: Home,
     meta: {
       requiresAuth: true
     }
   },
   {
-    path: "/login",
-    name: "login",
-    component: Login
+    path: "/auth",
+    component: AuthLayout,
+    meta: {
+      onlyNotAuth: true
+    },
+    children: [
+      {
+        path: "login",
+        component: Login
+      },
+      {
+        path: "register",
+        component: Register
+      }
+    ]
   },
   {
-    path: "/register",
-    name: "register",
-    component: Register
-  },
-  {
-    path: "/map",
-    name: "map",
-    component: MapPage,
+    path: "/devices",
+    name: "devices",
+    component: DevicesLayout,
     meta: {
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: "map",
+        component: DevicesMap
+      },
+      {
+        path: "table",
+        component: DevicesTable
+      }
+    ]
   },
   {
-    path: "/catalog",
-    name: "catalog",
-    component: Catalog,
+    path: "/user",
+    name: "user",
+    component: UserLayout,
     meta: {
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: "profile",
+        component: Profile
+      }
+    ]
   }
 ];
 
@@ -54,12 +84,17 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (
+    store.getters.isLoggedIn &&
+    to.matched.some(record => record.meta.onlyNotAuth)
+  ) {
+    next("/");
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
       next();
       return;
     }
-    next("/login");
+    next("/auth/login");
   } else {
     next();
   }

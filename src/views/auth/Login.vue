@@ -45,7 +45,6 @@ export default {
       }
     };
   },
-
   methods: {
     handleSubmit: function(e) {
       e.preventDefault();
@@ -60,11 +59,6 @@ export default {
       let isValid = false;
       this.$refs.form.validate(valid => (isValid = valid));
       return isValid;
-    }
-  },
-  created() {
-    if (this.$store.getters.isLoggedIn) {
-      this.$router.push("/");
     }
   }
 };

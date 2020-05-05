@@ -75,11 +75,6 @@ export default {
         .then(() => this.$router.push("/"))
         .catch(err => console.log(err));
     }
-  },
-  created: function() {
-    if (this.$store.getters.isLoggedIn) {
-      this.$router.push("/profile");
-    }
   }
 };
 </script>
