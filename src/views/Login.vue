@@ -89,4 +89,22 @@ export default {
 .login__heading {
   font-size: 25px;
 }
+
+@media all and (max-width: 900px) {
+  .login__form {
+    width: 60%;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .login__form {
+    width: 80%;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .login__form {
+    width: 90%;
+  }
+}
 </style>
