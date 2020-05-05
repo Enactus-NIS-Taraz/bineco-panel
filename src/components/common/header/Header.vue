@@ -11,17 +11,39 @@
       <router-link to="/devices/map" class="header__nav-link">Map</router-link>
     </nav>
     <div>
-      <a-avatar size="large" icon="user" />
+      <a-dropdown>
+        <a-avatar size="large" icon="user" />
+        <a-menu slot="overlay">
+          <a-menu-item>
+            <router-link to="/user/profile">My profile</router-link>
+          </a-menu-item>
+          <a-menu-item>
+            <router-link to="#">Settings</router-link>
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item>
+            <a href="javascript:;" @click="handleLogout">Logout</a>
+          </a-menu-item>
+        </a-menu>
+      </a-dropdown>
     </div>
   </header>
 </template>
 
 <script>
 import Logo from "@/components/common/logo/Logo";
+import { mapMutations } from "vuex";
 
 export default {
   components: {
     logo: Logo
+  },
+  methods: {
+    handleLogout() {
+      this.logout();
+      this.$router.push("/auth/login");
+    },
+    ...mapMutations(["logout"])
   }
 };
 </script>

@@ -56,15 +56,6 @@ export default {
             reject(err);
           });
       });
-    },
-    logout({ commit }) {
-      return new Promise(resolve => {
-        localStorage.removeItem("token");
-        commit("logout");
-        delete axios.defaults.headers.common["Authorization"];
-        window.location.reload();
-        resolve();
-      });
     }
   },
   mutations: {
@@ -89,8 +80,9 @@ export default {
     },
     logout(state) {
       state.status = "";
-      state.token = "";
+      state.token = {};
       state.user = {};
+      window.localStorage.removeItem("token");
     },
     devicesLoading(state) {
       state.status = "loading";
