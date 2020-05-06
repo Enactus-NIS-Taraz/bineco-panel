@@ -1,10 +1,10 @@
 <template>
   <div class="table">
-    <a-table :columns="columns" :data-source="data">
+    <a-table :columns="columns" :data-source="data" :pagination="false">
       <span slot="status" slot-scope="status">
-        <a-tag :color="status === 'full' ? 'volcano' : 'green'">{{
-          status.toUpperCase()
-        }}</a-tag>
+        <a-tag :color="status === 'full' ? 'volcano' : 'green'">
+          {{ status.toUpperCase() }}
+        </a-tag>
       </span>
     </a-table>
   </div>
