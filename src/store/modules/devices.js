@@ -1,5 +1,4 @@
-import axios from "axios";
-import config from "@/config/config";
+import axios from "@/request/request";
 
 export default {
   state: {
@@ -7,16 +6,15 @@ export default {
     devices: []
   },
   actions: {
-    getDevices({ commit }) {
-      return Promise((resolve, reject) => {
+    fetchDevices({ commit }) {
+      return new Promise((resolve, reject) => {
         commit("devicesLoading");
         axios({
-          url: config.apiBaseUrl + "devices",
+          url: "devices",
           method: "GET"
         })
           .then(res => {
-            const devices = res.data;
-            commit("devicesSuccess", devices);
+            commit("devicesSuccess", res.data.devices);
             resolve(res);
           })
           .catch(err => {
@@ -34,7 +32,7 @@ export default {
       state.devicesStatus = "success";
       state.devices = data;
     },
-    devicesEror(state) {
+    devicesError(state) {
       state.devicesStatus = "error";
     }
   },

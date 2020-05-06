@@ -23,7 +23,6 @@ export default {
           .then(res => {
             const token = res.data.accessToken;
             localStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = token;
             commit("authSuccess", res.data);
             resolve(res);
           })
@@ -46,7 +45,6 @@ export default {
             const token = res.data.token;
             const user = res.data.user;
             localStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = token;
             commit("authSuccess", token, user);
             resolve(res);
           })

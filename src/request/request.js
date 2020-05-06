@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "@/config/config";
+import store from "@/store/index";
 import { message } from "ant-design-vue";
 
 const instance = axios.create({
@@ -10,6 +11,7 @@ const instance = axios.create({
 const key = "request";
 instance.interceptors.request.use(
   config => {
+    config.headers["Authorization"] = store.getters.accessToken;
     message.loading({ content: "Please wait", key });
     return config;
   },

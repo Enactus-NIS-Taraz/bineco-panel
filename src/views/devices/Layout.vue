@@ -21,6 +21,7 @@
 
 <script>
 import Header from "@/components/common/header/Header";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -30,6 +31,12 @@ export default {
     return {
       currentRoute: [this.$router.currentRoute.path]
     };
+  },
+  methods: {
+    ...mapActions(["fetchDevices"])
+  },
+  beforeMount() {
+    this.fetchDevices();
   }
 };
 </script>
