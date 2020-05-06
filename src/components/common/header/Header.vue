@@ -57,7 +57,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #c3c3c3;
 }
 
 .header__nav {
