@@ -14,7 +14,7 @@
           </router-link>
         </a-menu-item>
       </a-menu>
-      <router-view />
+      <router-view class="layout-content" />
     </div>
   </div>
 </template>
@@ -42,5 +42,9 @@ export default {
 
 .tabs {
   margin-top: 30px;
+}
+
+.layout-content {
+  margin-top: 35px;
 }
 </style>
