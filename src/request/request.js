@@ -1,6 +1,7 @@
 import axios from "axios";
 import config from "@/config/config";
 import store from "@/store/index";
+import router from "@/router/index";
 import { message } from "ant-design-vue";
 
 const instance = axios.create({
@@ -27,6 +28,10 @@ instance.interceptors.response.use(
     return res;
   },
   err => {
+    if (err.response.status === 401) {
+      store.commit("logout");
+      router.push("/auth/login");
+    }
     message.error({ content: "Error", key });
     return Promise.reject(err);
   }
