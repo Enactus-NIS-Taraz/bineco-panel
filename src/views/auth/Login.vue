@@ -74,7 +74,7 @@ export default {
 }
 
 .login__form {
-  width: 40%;
+  width: 30%;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -82,6 +82,12 @@ export default {
 
 .login__heading {
   font-size: 25px;
+}
+
+@media all and (max-width: 1300px) {
+  .login__form {
+    width: 40%;
+  }
 }
 
 @media all and (max-width: 900px) {
