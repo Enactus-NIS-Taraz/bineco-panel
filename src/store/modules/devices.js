@@ -37,6 +37,6 @@ export default {
     }
   },
   getters: {
-    getDevices: state => state.devices
+    devices: state => state.devices
   }
 };

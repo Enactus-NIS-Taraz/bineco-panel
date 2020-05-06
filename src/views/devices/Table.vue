@@ -1,15 +1,16 @@
 <template>
   <div class="table">
-    <a-table :columns="columns" :data-source="data" :pagination="false">
+    <a-table :columns="columns" :data-source="tableData" :pagination="false">
       <span slot="status" slot-scope="status">
-        <a-tag :color="status === 'full' ? 'volcano' : 'green'">
-          {{ status.toUpperCase() }}
-        </a-tag>
+        <a-tag v-if="status" color="green">ACTIVE</a-tag>
+        <a-tag v-else color="volcano">NOT ACTIVE</a-tag>
       </span>
     </a-table>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 const columns = [
   {
     title: "Owner",
@@ -34,36 +35,23 @@ const columns = [
   }
 ];
 
-const data = [
-  {
-    key: "1",
-    owner: "sayazhan.onlassyn@mail.ru",
-    fullness: 0.3,
-    address: "New York No. 1 Lake Park",
-    status: "full"
-  },
-  {
-    key: "2",
-    owner: "sayazhan.onlassyn@mail.ru",
-    fullness: 0.5,
-    address: "London No. 1 Lake Park",
-    status: "empty"
-  },
-  {
-    key: "3",
-    owner: "sayazhan.onlassyn@mail.ru",
-    fullness: 0.6,
-    address: "Sidney No. 1 Lake Park",
-    status: "full"
-  }
-];
-
 export default {
   data() {
     return {
-      data,
       columns
     };
+  },
+  computed: {
+    tableData() {
+      return this.devices.map(device => ({
+        key: device._id,
+        owner: device.owner,
+        fullness: device.fullness,
+        address: "New York No. 1 Lake Park",
+        status: device.isActive
+      }));
+    },
+    ...mapGetters(["devices"])
   }
 };
 </script>
