@@ -1,6 +1,5 @@
 <template>
   <div>
-    <c-header />
     <div class="layout-container">
       <a-menu v-model="currentRoute" mode="horizontal" class="tabs">
         <a-menu-item key="/devices/map">
@@ -20,13 +19,9 @@
 </template>
 
 <script>
-import Header from "@/components/common/header/Header";
 import { mapActions } from "vuex";
 
 export default {
-  components: {
-    "c-header": Header
-  },
   data() {
     return {
       currentRoute: [this.$router.currentRoute.path]
