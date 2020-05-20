@@ -7,7 +7,7 @@
 <script>
 import { yandexMap, ymapMarker } from "vue-yandex-maps";
 import config from "@/config/config";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 const settings = {
   apiKey: config.ymapApiKey,
@@ -30,6 +30,12 @@ export default {
   },
   computed: {
     ...mapGetters(["devices"])
+  },
+  methods: {
+    ...mapActions(["fetchDevices"])
+  },
+  beforeMount() {
+    this.fetchDevices();
   }
 };
 </script>

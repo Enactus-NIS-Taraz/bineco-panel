@@ -2,17 +2,17 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store/index";
 
+import MainLayout from "@/views/layouts/Main";
+import EmptyLayout from "@/views/layouts/Empty";
+
 import Home from "@/views/Home";
 
-import AuthLayout from "@/views/auth/Layout";
 import Login from "@/views/auth/Login";
 import Register from "@/views/auth/Register";
 
-import DevicesLayout from "@/views/devices/Layout";
 import DevicesMap from "@/views/devices/Map";
 import DevicesTable from "@/views/devices/Table";
 
-import UserLayout from "@/views/user/Layout";
 import Profile from "@/views/user/Profile";
 
 Vue.use(VueRouter);
@@ -20,15 +20,47 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
+    component: MainLayout,
     meta: {
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: "",
+        name: "home",
+        component: Home
+      },
+      {
+        path: "devices",
+        name: "devices",
+        component: EmptyLayout,
+        children: [
+          {
+            path: "map",
+            component: DevicesMap
+          },
+          {
+            path: "table",
+            component: DevicesTable
+          }
+        ]
+      },
+      {
+        path: "user",
+        name: "user",
+        component: EmptyLayout,
+        children: [
+          {
+            path: "profile",
+            component: Profile
+          }
+        ]
+      }
+    ]
   },
   {
     path: "/auth",
-    component: AuthLayout,
+    component: EmptyLayout,
     meta: {
       onlyNotAuth: true
     },
@@ -40,38 +72,6 @@ const routes = [
       {
         path: "register",
         component: Register
-      }
-    ]
-  },
-  {
-    path: "/devices",
-    name: "devices",
-    component: DevicesLayout,
-    meta: {
-      requiresAuth: true
-    },
-    children: [
-      {
-        path: "map",
-        component: DevicesMap
-      },
-      {
-        path: "table",
-        component: DevicesTable
-      }
-    ]
-  },
-  {
-    path: "/user",
-    name: "user",
-    component: UserLayout,
-    meta: {
-      requiresAuth: true
-    },
-    children: [
-      {
-        path: "profile",
-        component: Profile
       }
     ]
   }
