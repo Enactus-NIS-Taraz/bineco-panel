@@ -1,16 +1,32 @@
 <template>
   <header class="header">
-    <router-link to="/">
-      <logo class="header__logo" />
-    </router-link>
-    <nav class="header__nav">
-      <router-link to="/" class="header__nav-link">Home</router-link>
-      <router-link to="/devices/table" class="header__nav-link"
-        >Table</router-link
+    <div class="header__item">
+      <a-select size="large" value="1" class="header__select">
+        <a-select-option value="1">
+          Workplace #1
+        </a-select-option>
+        <a-select-option value="2">
+          Workplace #2
+        </a-select-option>
+        <a-select-option value="3">
+          Workplace #3
+        </a-select-option>
+        <a-select-option value="4">
+          Workplace #4
+        </a-select-option>
+      </a-select>
+      <a-button
+        type="primary"
+        size="large"
+        class="header__create-workplace-button"
       >
-      <router-link to="/devices/map" class="header__nav-link">Map</router-link>
-    </nav>
-    <div>
+        Join workplace
+      </a-button>
+    </div>
+    <div class="header__item">
+      <a-badge count="5" class="header__notifications">
+        <a-icon type="bell" class="header__notifications-icon" />
+      </a-badge>
       <a-dropdown>
         <a-avatar size="large" icon="user" />
         <a-menu slot="overlay">
@@ -31,13 +47,9 @@
 </template>
 
 <script>
-import Logo from "@/components/common/logo/Logo";
 import { mapMutations } from "vuex";
 
 export default {
-  components: {
-    logo: Logo
-  },
   methods: {
     handleLogout() {
       this.logout();
@@ -51,20 +63,33 @@ export default {
 <style scoped>
 .header {
   height: 80px;
-  width: 80%;
   margin: auto;
-  padding: 0 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.header__nav {
-  width: 40%;
+.header__item {
+  display: flex;
 }
 
-.header__nav-link {
+.header__select {
+  width: 200px;
+}
+
+.header__create-workplace-button {
+  margin-left: 20px;
+}
+
+.header__notifications {
   margin-right: 30px;
-  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header__notifications-icon {
+  font-size: 26px;
 }
 </style>

@@ -38,6 +38,6 @@ export default {
 
 .layout__content {
   width: 92%;
-  border: 1px solid green;
+  padding: 20px 50px;
 }
 </style>
