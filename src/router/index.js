@@ -10,7 +10,6 @@ import Home from "@/views/Home";
 import Login from "@/views/auth/Login";
 import Register from "@/views/auth/Register";
 
-import DevicesLayout from "@/views/devices/Layout";
 import DevicesMap from "@/views/devices/Map";
 import DevicesTable from "@/views/devices/Table";
 
@@ -34,7 +33,7 @@ const routes = [
       {
         path: "devices",
         name: "devices",
-        component: DevicesLayout,
+        component: EmptyLayout,
         children: [
           {
             path: "map",

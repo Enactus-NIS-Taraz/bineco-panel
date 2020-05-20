@@ -40,4 +40,8 @@ export default {
   width: 92%;
   padding: 20px 50px;
 }
+
+.layout__header {
+  margin-bottom: 30px;
+}
 </style>

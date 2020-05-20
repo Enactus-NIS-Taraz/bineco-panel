@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 const columns = [
   {
@@ -52,6 +52,12 @@ export default {
       }));
     },
     ...mapGetters(["devices"])
+  },
+  methods: {
+    ...mapActions(["fetchDevices"])
+  },
+  beforeMount() {
+    this.fetchDevices();
   }
 };
 </script>

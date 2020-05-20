@@ -62,8 +62,8 @@ export default {
 
 <style scoped>
 .header {
+  width: 100%;
   height: 80px;
-  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
