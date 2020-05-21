@@ -13,9 +13,9 @@ import { mapActions, mapGetters } from "vuex";
 
 const columns = [
   {
-    title: "Owner",
-    dataIndex: "owner",
-    key: "owner"
+    title: "Device ID",
+    dataIndex: "id",
+    key: "id"
   },
   {
     title: "Fullness",
@@ -45,9 +45,9 @@ export default {
     tableData() {
       return this.devices.map(device => ({
         key: device._id,
-        owner: device.owner,
+        id: device._id,
         fullness: device.fullness,
-        address: "New York No. 1 Lake Park",
+        address: device.placeName,
         status: device.isActive
       }));
     },
