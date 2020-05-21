@@ -46,7 +46,7 @@ export default {};
 }
 
 .nav__logo {
-  width: 50%;
+  width: 40%;
 }
 
 .nav__links {

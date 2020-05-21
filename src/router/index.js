@@ -5,7 +5,7 @@ import store from "@/store/index";
 import MainLayout from "@/views/layouts/Main";
 import EmptyLayout from "@/views/layouts/Empty";
 
-import Home from "@/views/Home";
+import Home from "@/views/home/Home";
 
 import Login from "@/views/auth/Login";
 import Register from "@/views/auth/Register";
