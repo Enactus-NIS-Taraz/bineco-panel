@@ -13,7 +13,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: "login",
+          url: "auth/login",
           data: {
             email,
             password
@@ -37,7 +37,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("authLoading");
         axios({
-          url: "register",
+          url: "auth/register",
           data: user,
           method: "POST"
         })
