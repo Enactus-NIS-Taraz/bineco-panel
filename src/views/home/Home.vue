@@ -49,6 +49,9 @@ export default {
             show: false
           }
         },
+        grid: {
+          show: false
+        },
         plotOptions: {
           bar: {
             dataLabels: {
@@ -155,6 +158,9 @@ export default {
           toolbar: {
             show: false
           }
+        },
+        grid: {
+          show: false
         },
         dataLabels: {
           enabled: false
