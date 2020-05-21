@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <apex-charts
+      height="400px"
       :options="barchartOptions"
       :series="barchartOptions.series"
       class="home__bar-chart"
@@ -21,7 +22,7 @@ export default {
         series: [
           {
             name: "Inflation",
-            data: [2.3, 3.1, 4.0, 5.6, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+            data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
           }
         ],
         chart: {
