@@ -1,6 +1,12 @@
 <template>
   <yandex-map :settings="settings" :coords="coords" :zoom="zoom" class="map">
-    <ymap-marker markerId="1" marker-type="Placemark" :coords="coords" />
+    <ymap-marker
+      v-for="device in devices"
+      :key="device._id"
+      :markerId="device._id"
+      marker-type="Placemark"
+      :coords="device.location"
+    />
   </yandex-map>
 </template>
 
