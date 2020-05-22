@@ -5,6 +5,14 @@
         <a-tag v-if="status" color="green">ACTIVE</a-tag>
         <a-tag v-else color="volcano">NOT ACTIVE</a-tag>
       </span>
+      <span slot="controls" slot-scope="record" class="table__controls">
+        <a-icon type="edit" class="table__icon table__icon_edit" />
+        <a-icon
+          @click="showDeleteConfirm(record.id)"
+          type="delete"
+          class="table__icon table__icon_delete"
+        />
+      </span>
     </a-table>
   </div>
 </template>
@@ -32,6 +40,10 @@ const columns = [
     key: "status",
     dataIndex: "status",
     scopedSlots: { customRender: "status" }
+  },
+  {
+    key: "controls",
+    scopedSlots: { customRender: "controls" }
   }
 ];
 
@@ -54,10 +66,39 @@ export default {
     ...mapGetters(["devices"])
   },
   methods: {
-    ...mapActions(["fetchDevices"])
+    showDeleteConfirm(deviceId) {
+      this.$confirm({
+        title: "Are you sure delete this device?",
+        content: "You will be able to connect device later using its code",
+        okText: "Delete",
+        okType: "danger",
+        onOk: () => this.deleteDevice(deviceId).then(() => this.fetchDevices())
+      });
+    },
+    ...mapActions(["fetchDevices", "deleteDevice"])
   },
   beforeMount() {
     this.fetchDevices();
   }
 };
 </script>
+
+<style scoped>
+.table__controls {
+  display: flex;
+}
+
+.table__icon {
+  display: block;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.table__icon_edit {
+  color: #faad14;
+}
+
+.table__icon_delete {
+  color: #f5222d;
+}
+</style>

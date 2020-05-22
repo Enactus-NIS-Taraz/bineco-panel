@@ -22,6 +22,16 @@ export default {
             reject(err);
           });
       });
+    },
+    deleteDevice(ctx, deviceId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "devices/" + deviceId,
+          method: "DELETE"
+        })
+          .then(res => resolve(res))
+          .catch(err => reject(err));
+      });
     }
   },
   mutations: {
