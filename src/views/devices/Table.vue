@@ -7,7 +7,11 @@
       </span>
       <span slot="controls" class="table__controls">
         <a-icon type="edit" class="table__icon table__icon_edit" />
-        <a-icon type="delete" class="table__icon table__icon_delete" />
+        <a-icon
+          @click="showDeleteConfirm"
+          type="delete"
+          class="table__icon table__icon_delete"
+        />
       </span>
     </a-table>
   </div>
@@ -62,6 +66,17 @@ export default {
     ...mapGetters(["devices"])
   },
   methods: {
+    showDeleteConfirm() {
+      this.$confirm({
+        title: "Are you sure delete this device?",
+        content: "You will be able to connect device later using its code",
+        okText: "Delete",
+        okType: "danger",
+        onOk() {
+          console.log("OK");
+        }
+      });
+    },
     ...mapActions(["fetchDevices"])
   },
   beforeMount() {
