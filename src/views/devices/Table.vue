@@ -5,10 +5,10 @@
         <a-tag v-if="status" color="green">ACTIVE</a-tag>
         <a-tag v-else color="volcano">NOT ACTIVE</a-tag>
       </span>
-      <span slot="controls" class="table__controls">
+      <span slot="controls" slot-scope="record" class="table__controls">
         <a-icon type="edit" class="table__icon table__icon_edit" />
         <a-icon
-          @click="showDeleteConfirm"
+          @click="showDeleteConfirm(record.id)"
           type="delete"
           class="table__icon table__icon_delete"
         />
@@ -66,18 +66,16 @@ export default {
     ...mapGetters(["devices"])
   },
   methods: {
-    showDeleteConfirm() {
+    showDeleteConfirm(deviceId) {
       this.$confirm({
         title: "Are you sure delete this device?",
         content: "You will be able to connect device later using its code",
         okText: "Delete",
         okType: "danger",
-        onOk() {
-          console.log("OK");
-        }
+        onOk: () => this.deleteDevice(deviceId).then(() => this.fetchDevices())
       });
     },
-    ...mapActions(["fetchDevices"])
+    ...mapActions(["fetchDevices", "deleteDevice"])
   },
   beforeMount() {
     this.fetchDevices();
