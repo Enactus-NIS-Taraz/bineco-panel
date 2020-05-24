@@ -1,4 +1,4 @@
-import axios from "@/request/request";
+import { request, requestWithoutProgress } from "@/request/request";
 
 export default {
   state: {
@@ -9,7 +9,24 @@ export default {
     fetchDevices({ commit }) {
       return new Promise((resolve, reject) => {
         commit("devicesLoading");
-        axios({
+        request({
+          url: "devices",
+          method: "GET"
+        })
+          .then(res => {
+            commit("devicesSuccess", res.data.devices);
+            resolve(res);
+          })
+          .catch(err => {
+            commit("devicesError");
+            reject(err);
+          });
+      });
+    },
+    fetchDevicesWithoutProgress({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit("devicesLoading");
+        requestWithoutProgress({
           url: "devices",
           method: "GET"
         })
@@ -25,7 +42,7 @@ export default {
     },
     deleteDevice(ctx, deviceId) {
       return new Promise((resolve, reject) => {
-        axios({
+        request({
           url: "devices/" + deviceId,
           method: "DELETE"
         })

@@ -4,13 +4,13 @@ import store from "@/store/index";
 import router from "@/router/index";
 import { message } from "ant-design-vue";
 
-const instance = axios.create({
+const request = axios.create({
   baseURL: config.apiBaseUrl,
   headers: { "Content-Type": "application/json" }
 });
 
 const key = "request";
-instance.interceptors.request.use(
+request.interceptors.request.use(
   config => {
     config.headers["Authorization"] = store.getters.accessToken;
     message.loading({ content: "Please wait", key });
@@ -22,7 +22,7 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
+request.interceptors.response.use(
   res => {
     message.success({ content: "Success", key });
     return res;
@@ -37,4 +37,32 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+const requestWithoutProgress = axios.create({
+  baseURL: config.apiBaseUrl,
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+
+requestWithoutProgress.interceptors.request.use(
+  config => {
+    config.headers["Authorization"] = store.getters.accessToken;
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  }
+);
+
+requestWithoutProgress.interceptors.response.use(
+  res => res,
+  err => {
+    if (err.response.status === 401) {
+      store.commit("logout");
+      router.push("/auth/login");
+    }
+    return Promise.reject(err);
+  }
+);
+
+export { request, requestWithoutProgress };
