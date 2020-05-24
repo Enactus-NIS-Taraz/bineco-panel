@@ -1,4 +1,4 @@
-import { request } from "@/request/request";
+import { request, requestWithoutProgress } from "@/request/request";
 
 export default {
   state: {
@@ -10,6 +10,23 @@ export default {
       return new Promise((resolve, reject) => {
         commit("devicesLoading");
         request({
+          url: "devices",
+          method: "GET"
+        })
+          .then(res => {
+            commit("devicesSuccess", res.data.devices);
+            resolve(res);
+          })
+          .catch(err => {
+            commit("devicesError");
+            reject(err);
+          });
+      });
+    },
+    fetchDevicesWithoutProgress({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit("devicesLoading");
+        requestWithoutProgress({
           url: "devices",
           method: "GET"
         })

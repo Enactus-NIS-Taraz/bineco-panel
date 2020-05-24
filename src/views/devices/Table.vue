@@ -53,7 +53,8 @@ const columns = [
 export default {
   data() {
     return {
-      columns
+      columns,
+      requestInterval: null
     };
   },
   computed: {
@@ -78,10 +79,24 @@ export default {
         onOk: () => this.deleteDevice(deviceId).then(() => this.fetchDevices())
       });
     },
-    ...mapActions(["fetchDevices", "deleteDevice"])
+    ...mapActions([
+      "fetchDevices",
+      "fetchDevicesWithoutProgress",
+      "deleteDevice"
+    ])
   },
   beforeMount() {
     this.fetchDevices();
+  },
+  mounted() {
+    const interval = 5000;
+    this.requestInterval = setInterval(
+      this.fetchDevicesWithoutProgress,
+      interval
+    );
+  },
+  beforeDestroy() {
+    clearInterval(this.requestInterval);
   }
 };
 </script>
