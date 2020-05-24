@@ -40,10 +40,19 @@ request.interceptors.response.use(
 const requestWithoutProgress = axios.create({
   baseURL: config.apiBaseUrl,
   headers: {
-    "Content-Type": "application/json",
-    Authorization: store.getters.accessToken
+    "Content-Type": "application/json"
   }
 });
+
+requestWithoutProgress.interceptors.request.use(
+  config => {
+    config.headers["Authorization"] = store.getters.accessToken;
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  }
+);
 
 requestWithoutProgress.interceptors.response.use(
   res => res,
