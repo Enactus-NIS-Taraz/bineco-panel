@@ -1,27 +1,15 @@
 <template>
   <header class="header">
     <div class="header__item">
-      <a-select size="large" value="1" class="header__select">
-        <a-select-option value="1">
-          Workplace #1
-        </a-select-option>
-        <a-select-option value="2">
-          Workplace #2
-        </a-select-option>
-        <a-select-option value="3">
-          Workplace #3
-        </a-select-option>
-        <a-select-option value="4">
-          Workplace #4
-        </a-select-option>
+      <a-select value="1" class="header__select">
+        <a-select-option value="1">Workplace #1</a-select-option>
+        <a-select-option value="2">Workplace #2</a-select-option>
+        <a-select-option value="3">Workplace #3</a-select-option>
+        <a-select-option value="4">Workplace #4</a-select-option>
       </a-select>
-      <a-button
-        type="primary"
-        size="large"
-        class="header__create-workplace-button"
+      <a-button type="primary" class="header__create-workplace-button"
+        >Join workplace</a-button
       >
-        Join workplace
-      </a-button>
     </div>
     <div class="header__item">
       <a-badge count="5" class="header__notifications">
