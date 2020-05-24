@@ -1,4 +1,4 @@
-import axios from "@/request/request";
+import { request } from "@/request/request";
 
 export default {
   state: {
@@ -12,7 +12,7 @@ export default {
     login({ commit }, { email, password }) {
       return new Promise((resolve, reject) => {
         commit("authLoading");
-        axios({
+        request({
           url: "auth/login",
           data: {
             email,
@@ -36,7 +36,7 @@ export default {
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit("authLoading");
-        axios({
+        request({
           url: "auth/register",
           data: user,
           method: "POST"

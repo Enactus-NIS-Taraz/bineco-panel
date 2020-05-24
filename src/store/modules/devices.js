@@ -1,4 +1,4 @@
-import axios from "@/request/request";
+import request from "@/request/request";
 
 export default {
   state: {
@@ -9,7 +9,7 @@ export default {
     fetchDevices({ commit }) {
       return new Promise((resolve, reject) => {
         commit("devicesLoading");
-        axios({
+        request({
           url: "devices",
           method: "GET"
         })
@@ -25,7 +25,7 @@ export default {
     },
     deleteDevice(ctx, deviceId) {
       return new Promise((resolve, reject) => {
-        axios({
+        request({
           url: "devices/" + deviceId,
           method: "DELETE"
         })

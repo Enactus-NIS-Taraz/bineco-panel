@@ -14,6 +14,9 @@
         />
       </span>
     </a-table>
+    <a-row class="table__footer">
+      <a-button type="primary">Add device</a-button>
+    </a-row>
   </div>
 </template>
 <script>
@@ -100,5 +103,9 @@ export default {
 
 .table__icon_delete {
   color: #f5222d;
+}
+
+.table__footer {
+  margin-top: 20px;
 }
 </style>
