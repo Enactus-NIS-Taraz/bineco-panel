@@ -33,6 +33,7 @@
       <a-form-model-item label="Coordinates" prop="coords">
         <a-input v-model="form.coords.x" type="text" placeholder="X coords" />
         <a-input v-model="form.coords.y" type="text" placeholder="Y coords" />
+        <a-button @click="setCurrentLocation">Set current position</a-button>
       </a-form-model-item>
       <a-form-model-item label="Active" prop="isActive">
         <a-switch v-model="form.isActive" />
@@ -71,6 +72,12 @@ export default {
     },
     close() {
       this.$emit("change", false);
+    },
+    setCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.form.coords.x = position.coords.latitude;
+        this.form.coords.y = position.coords.longitude;
+      });
     }
   }
 };
