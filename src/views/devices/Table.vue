@@ -15,12 +15,16 @@
       </span>
     </a-table>
     <a-row class="table__footer">
-      <a-button type="primary">Add device</a-button>
+      <a-button @click="isCreateDeviceModalVisible = true" type="primary"
+        >Add device</a-button
+      >
     </a-row>
+    <create-device-modal v-model="isCreateDeviceModalVisible" />
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import CreateDeviceModal from "@/components/devices/CreateDeviceModal";
 
 const columns = [
   {
@@ -51,10 +55,14 @@ const columns = [
 ];
 
 export default {
+  components: {
+    "create-device-modal": CreateDeviceModal
+  },
   data() {
     return {
       columns,
-      requestInterval: null
+      requestInterval: null,
+      isCreateDeviceModalVisible: false
     };
   },
   computed: {
@@ -102,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.table {
+  padding-bottom: 50px;
+}
+
 .table__controls {
   display: flex;
 }

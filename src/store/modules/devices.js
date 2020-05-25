@@ -1,4 +1,4 @@
-import { request, requestWithoutProgress } from "@/request/request";
+import { request, requestWithoutProgress } from "@/requests/request";
 
 export default {
   state: {
