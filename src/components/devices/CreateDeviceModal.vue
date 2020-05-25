@@ -18,6 +18,7 @@
           v-model="form.code"
           type="text"
           placeholder="Device activator code"
+          disabled
         />
       </a-form-model-item>
       <a-form-model-item label="Address" prop="placeName">
@@ -28,11 +29,19 @@
         />
       </a-form-model-item>
       <a-form-model-item label="Fullness" prop="fullness">
-        <a-input v-model="form.fullness" type="number" />
+        <a-input
+          v-model="form.fullness"
+          type="number"
+          min="0"
+          max="1"
+          step="0.1"
+        />
       </a-form-model-item>
-      <a-form-model-item label="Coordinates" prop="coords">
-        <a-input v-model="form.coords.x" type="text" placeholder="X coords" />
-        <a-input v-model="form.coords.y" type="text" placeholder="Y coords" />
+      <a-form-model-item style="margin: 0" label="X coords" prop="xCoords">
+        <a-input v-model="form.xCoords" type="text" placeholder="X coords" />
+      </a-form-model-item>
+      <a-form-model-item label="Y coords" prop="yCoords">
+        <a-input v-model="form.yCoords" type="text" placeholder="Y coords" />
         <a-button @click="setCurrentLocation">Set current position</a-button>
       </a-form-model-item>
       <a-form-model-item label="Active" prop="isActive">
@@ -57,13 +66,40 @@ export default {
         code: "",
         placeName: "",
         fullness: 0,
-        coords: {
-          x: null,
-          y: null
-        },
+        xCoords: null,
+        yCoords: null,
         isActive: true
       },
-      rules: {}
+      rules: {
+        placeName: [
+          {
+            required: true,
+            message: "Please enter device address",
+            trigger: "blur"
+          }
+        ],
+        fullness: [
+          {
+            required: true,
+            message: "Please enter default fullness",
+            trigger: "blur"
+          }
+        ],
+        xCoords: [
+          {
+            required: true,
+            message: "Please set location coordinates",
+            trigger: "blur"
+          }
+        ],
+        yCoords: [
+          {
+            required: true,
+            message: "Please set location coordinates",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   methods: {
@@ -75,8 +111,8 @@ export default {
     },
     setCurrentLocation() {
       navigator.geolocation.getCurrentPosition(position => {
-        this.form.coords.x = position.coords.latitude;
-        this.form.coords.y = position.coords.longitude;
+        this.form.xCoords = position.coords.latitude;
+        this.form.yCoords = position.coords.longitude;
       });
     }
   }
