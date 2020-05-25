@@ -110,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.table {
+  padding-bottom: 50px;
+}
+
 .table__controls {
   display: flex;
 }
