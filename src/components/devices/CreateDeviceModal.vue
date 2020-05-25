@@ -5,6 +5,7 @@
     title="Add device"
     okText="Add"
     @ok="handleSubmit"
+    :confirm-loading="loading"
   >
     <a-form-model
       :model="form"
@@ -52,6 +53,9 @@
 </template>
 
 <script>
+import { createDevice } from "@/requests/devices";
+import { mapActions } from "vuex";
+
 export default {
   model: {
     prop: "visible",
@@ -62,6 +66,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       form: {
         code: "",
         placeName: "",
@@ -104,17 +109,37 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log("Modal is submitted");
+      if (this.isValid()) {
+        const device = {
+          location: [this.form.xCoords, this.form.yCoords],
+          fullness: this.form.fullness,
+          isActive: this.form.isActive,
+          placeName: this.form.placeName
+        };
+        this.loading = true;
+        createDevice(device)
+          .then(() => {
+            this.fetchDevices().then(() => (this.loading = false));
+          })
+          .catch(() => (this.loading = false))
+          .finally(this.close);
+      }
     },
     close() {
       this.$emit("change", false);
+    },
+    isValid() {
+      let isValid = false;
+      this.$refs.form.validate(valid => (isValid = valid));
+      return isValid;
     },
     setCurrentLocation() {
       navigator.geolocation.getCurrentPosition(position => {
         this.form.xCoords = position.coords.latitude;
         this.form.yCoords = position.coords.longitude;
       });
-    }
+    },
+    ...mapActions(["fetchDevices"])
   }
 };
 </script>
