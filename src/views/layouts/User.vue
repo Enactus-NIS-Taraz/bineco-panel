@@ -1,12 +1,18 @@
 <template>
   <div class="user-layout">
-    <nav class="user-layout__nav">This is nav</nav>
+    <side-nav class="user-layout__nav" />
     <router-view class="user-layout__content" />
   </div>
 </template>
 
 <script>
-export default {};
+import SideNav from "@/components/user/Nav";
+
+export default {
+  components: {
+    "side-nav": SideNav
+  }
+};
 </script>
 
 <style scoped>
