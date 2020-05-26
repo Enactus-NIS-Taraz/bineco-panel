@@ -6,3 +6,10 @@ export const createDevice = async device =>
     data: device,
     method: "POST"
   });
+
+export const editDevice = async (id, device) =>
+  await requestWithoutProgress({
+    url: "devices/" + id,
+    data: device,
+    method: "PATCH"
+  });

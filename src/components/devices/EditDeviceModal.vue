@@ -36,6 +36,9 @@
 </template>
 
 <script>
+import { editDevice } from "@/requests/devices";
+import { mapActions } from "vuex";
+
 export default {
   model: {
     prop: "visible",
@@ -51,6 +54,7 @@ export default {
   data() {
     return {
       loading: false,
+      deviceId: this.device.id,
       form: {
         placeName: this.device.address,
         xCoords: this.device.location[0],
@@ -85,7 +89,16 @@ export default {
   methods: {
     handleSubmit() {
       if (this.isValid()) {
-        console.log("Submitting");
+        this.loading = true;
+        const device = {
+          placeName: this.form.placeName,
+          isActive: this.form.isActive,
+          location: [this.form.xCoords, this.form.yCoords]
+        };
+        editDevice(this.deviceId, device)
+          .then(() => this.fetchDevices().then(() => (this.loading = false)))
+          .catch(() => (this.loading = false))
+          .finally(this.close);
       }
     },
     close() {
@@ -101,7 +114,8 @@ export default {
         this.form.xCoords = position.coords.latitude;
         this.form.yCoords = position.coords.longitude;
       });
-    }
+    },
+    ...mapActions(["fetchDevices"])
   }
 };
 </script>
