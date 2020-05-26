@@ -13,8 +13,8 @@
       <router-link to="/devices/map" class="nav__link">
         <a-icon type="heat-map" class="nav__icon" />
       </router-link>
-      <router-link to="#" class="nav__link">
-        <a-icon type="box-plot" class="nav__icon" />
+      <router-link to="/user" class="nav__link">
+        <a-icon type="user" class="nav__icon" />
       </router-link>
     </div>
     <div class="nav__footer">
