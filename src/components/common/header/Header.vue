@@ -19,7 +19,7 @@
         <a-avatar size="large" icon="user" />
         <a-menu slot="overlay">
           <a-menu-item>
-            <router-link to="/user/profile">My profile</router-link>
+            <router-link to="/user">My account</router-link>
           </a-menu-item>
           <a-menu-item>
             <router-link to="#">Settings</router-link>

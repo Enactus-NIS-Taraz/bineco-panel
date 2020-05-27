@@ -4,6 +4,7 @@ import store from "@/store/index";
 
 import MainLayout from "@/views/layouts/Main";
 import EmptyLayout from "@/views/layouts/Empty";
+import UserLayout from "@/views/layouts/User";
 
 import Home from "@/views/home/Home";
 
@@ -13,7 +14,7 @@ import Register from "@/views/auth/Register";
 import DevicesMap from "@/views/devices/Map";
 import DevicesTable from "@/views/devices/Table";
 
-import Profile from "@/views/user/Profile";
+import User from "@/views/user/User";
 
 Vue.use(VueRouter);
 
@@ -48,11 +49,11 @@ const routes = [
       {
         path: "user",
         name: "user",
-        component: EmptyLayout,
+        component: UserLayout,
         children: [
           {
-            path: "profile",
-            component: Profile
+            path: "",
+            component: User
           }
         ]
       }
