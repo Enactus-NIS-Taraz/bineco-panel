@@ -2,9 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import Antd from "ant-design-vue";
-import "ant-design-vue/dist/antd.css";
 
+import Antd from "ant-design-vue";
+import "../node_modules/ant-design-vue/dist/antd.less";
 Vue.use(Antd);
 Vue.config.productionTip = false;
 
