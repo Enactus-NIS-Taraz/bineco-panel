@@ -82,7 +82,7 @@ export default {
 .nav__link.router-link-active,
 .nav__link:hover {
   color: #ffffff;
-  background-color: #1890ff;
+  background-color: #569980;
 }
 
 .nav__icon {
