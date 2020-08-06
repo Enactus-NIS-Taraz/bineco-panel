@@ -5,15 +5,14 @@
       :key="device._id"
       :markerId="device._id"
       marker-type="Placemark"
+      :hint-content="device.isActive ? 'Active' : 'Inactive'"
       :coords="device.location"
       :balloon="{
         header: 'Device ID: ' + device._id,
         body: 'Fullness: ' + device.fullness,
         footer: 'Adress: ' + device.placeName
       }"
-      hint-content="Status:"
-      +
-      device.isActive
+      :icon="{ color: markerColor(device.fullness) }"
     />
   </yandex-map>
 </template>
@@ -46,7 +45,16 @@ export default {
     ...mapGetters(["devices"])
   },
   methods: {
-    ...mapActions(["fetchDevices"])
+    ...mapActions(["fetchDevices"]),
+    markerColor(fullness) {
+      if (fullness < 30) {
+        return "green";
+      } else if (fullness > 30 && fullness < 60) {
+        return "yellow";
+      } else {
+        return "red";
+      }
+    }
   },
   beforeMount() {
     this.fetchDevices();
