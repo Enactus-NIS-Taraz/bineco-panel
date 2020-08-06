@@ -6,6 +6,14 @@
       :markerId="device._id"
       marker-type="Placemark"
       :coords="device.location"
+      :balloon="{
+        header: 'Device ID: ' + device._id,
+        body: 'Fullness: ' + device.fullness,
+        footer: 'Adress: ' + device.placeName
+      }"
+      hint-content="Status:"
+      +
+      device.isActive
     />
   </yandex-map>
 </template>
